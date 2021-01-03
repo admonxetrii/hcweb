@@ -1,0 +1,185 @@
+{% extends 'base/landingbase.html' %}
+{% block 'title' %}About Us{% endblock %}
+{% load static %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                {% for f in flex %}
+                    <li style="background-image: url({{ f.image.url }});">
+                {% endfor %}
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h1>About Us</h1>
+                                <h2><a href="{% url 'home' %}">Home</a> - About</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div id="pycemon-about">
+        <div class="container">
+            <div class="row row-pb-lg">
+                <div class="col-md-6 animate-box">
+                    <div class="about-desc">
+                        <h3>About Hanuman Construction</h3>
+                        <p><strong><img alt="Hanuman Construction" src="{% static 'landingpage/images/hanuman-logo.png' %}"
+                                        style="width: 150px; height: 150px; float: left; margin-left: 10px; margin-right: 10px;"/>Shri
+                            Salik Ram Neupane</strong>, the Proprietor and visionary, is a hard-working and dedicated
+                            professional having around 25 Yrs Experience in Civil related construction works. He has
+                            worked in both India and Nepal during the entire tenure of his professional career with
+                            reputed and prestigious Companies of India and Nepal.</p>
+
+                        <p>He Joined Bridge &amp; Roof Co. (India) Ltd., A Govt. of India Enterprise under Bharat Yantra
+                            Nigam Ltd. as Site Coordinator. In no time, he rose to fame due to his dedication to the
+                            works allotted.</p>
+
+                        <p>As time passed by, he became a petty Contractor and started doing small construction works in
+                            many prestigious Plants like Cement, Steel, Aluminum &amp; Oil Refinery Plants with awards
+                            for various types of buildings and important structures.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 animate-box">
+                    <div class="fancy-collapse-panel">
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                           aria-expanded="true" aria-controls="collapseOne">Who we are
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                     aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <p>Far far away, behind the word <strong>mountains</strong>, far from the
+                                            countries Vokalia and Consonantia, there live the blind texts. Separated
+                                            they live in Bookmarksgrove right at the coast of the Semantics, a large
+                                            language ocean.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">What we
+                                            do?
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <p>Far far away, behind the word <strong>mountains</strong>, far from the
+                                            countries Vokalia and Consonantia, there live the blind texts. Separated
+                                            they live in Bookmarksgrove right at the coast of the Semantics, a large
+                                            language ocean.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">Why
+                                            Choose us
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        <p>Far far away, behind the word <strong>mountains</strong>, far from the
+                                            countries Vokalia and Consonantia, there live the blind texts. Separated
+                                            they live in Bookmarksgrove right at the coast of the Semantics, a large
+                                            language ocean.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 animate-box">
+                    <div class="about-desc">
+                        <p>With the growth of time, Shri. Salik Ram Neupane developed <strong>HANUMAN
+                            CONSTRUCTION</strong> in March&rsquo;1994 and registered in Makwanpur, Hetauda-11, Nepal. In
+                            no time, he started exploring all possibilities to develop the Company to great heights and
+                            since then has never turned back.</p>
+
+                        <p><strong>HANUMAN CONSTRUCTION</strong> is presently an established Company in Nepal and has
+                            constructed many prestigious projects in Nepal under some reputed Clients of both the
+                            Government and Private Sector all over Nepal.</p>
+
+                        <p>Also, <strong>HANUMAN CONSTRUCTION</strong> is currently working on some important projects
+                            all over Nepal with updated technology, upgraded safety norms, strict quality control, and
+                            supervision.</p>
+
+                        <p><strong>HANUMAN CONSTRUCTION</strong> has lived up to the satisfaction of all its Clients to
+                            deliver the works on time as per their requirement with excellent quality.</p>
+
+                        <p>With great visions in mind and growth of time, Shri Salik Ram Neupane has also opened
+                            <strong>HANUMAN TRADING &amp; SUPPLIERS</strong> seeing the market needs and also day to day
+                            construction needs in Nepal.</p>
+
+                        <p>Sister Concerns of <strong>HANUMAN CONSTRUCTION</strong> has also been developed and are
+                            doing good business in their respective fields and trying to reach great heights.</p>
+
+                        <p><strong>&ldquo;CUSTOMER SATISFACTION&rdquo; IS THE MAIN GOAL OF HANUMAN
+                            CONSTRUCTION......</strong></p>
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
+                    <h2>Our Team</h2>
+                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                        unorthographic life One day however a small line of blind text by the name</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 animate-box">
+                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person1.jpg);">
+                        <div class="desc-staff">
+                            <h3>Ian Moore</h3>
+                            <span>Electrician</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 animate-box">
+                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person2.jpg);">
+                        <div class="desc-staff">
+                            <h3>Jack Clark</h3>
+                            <span>Engineer</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 animate-box">
+                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person3.jpg);">
+                        <div class="desc-staff">
+                            <h3>Kiven Lewis</h3>
+                            <span>Architect</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-3 animate-box">
+                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person4.jpg);">
+                        <div class="desc-staff">
+                            <h3>Charles Scott</h3>
+                            <span>Assistant Engineer</span>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

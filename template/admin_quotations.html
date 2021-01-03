@@ -1,0 +1,227 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Quotations{% endblock %}
+{% load static %}
+{% block 'style' %}
+    <style>
+        .error {
+            color: darkred;
+        }
+    </style>
+    <link href="{% static 'adminpanel/plugins/DataTables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block 'body' %}
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Quotation Request to be responded</h5>
+                    <table id="zero-conf" class="display" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>About Company</th>
+                            <th width="30%">About Project</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for q in quotations %}
+                            <tr class="{{ q.email }}">
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ q.fname }} {{ q.lname }}</td>
+                                <td>{{ q.email }}</td>
+                                <td>{{ q.phone }}</td>
+                                <td>{{ q.about_company }}</td>
+                                <td>{{ q.about_project }}</td>
+                                <td>
+                                    <button type="button" value="{{ q.email }}" class="btn btn-info btn-sm respondThis">
+                                        Respond
+                                    </button>
+                                    | <a href="{% url 'admindelquotations' q.id %}"
+                                         onclick="return confirm('Are you sure want to delete this?')"
+                                         class="btn btn-danger btn-sm">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>About Company</th>
+                            <th>About Project</th>
+                            <th>Actions</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" id="toResp">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Send Response to <span class="text-danger" id="emailTitle"></span></h5>
+                    <form name="response" class="responseForm">
+                        <div class="form-group">
+                            <label for="subject">Subject:</label>
+                            <input type="text" id="subject" class="form-control" required placeholder="Enter subject"
+                                   name="subject">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message:</label>
+                            <textarea name="responseMessage" required class="form-control" id="message" cols="30"
+                                      rows="10"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="sendBtn" class="btn btn-primary">Send Response</button>
+                            <button type="button" id="loader" class="btn btn-secondary"><img
+                                    src="{% static 'landingpage/images/sending.gif' %}" height="20px"
+                                    alt="submitting"><span class=""> Sending...</span></button>
+                        </div>
+                    </form>
+                    <div class="responseText">
+                        <strong class="h2">Thank you! Your message has been sent. We will reply you as soon as possible.
+                            Please check your email for confirmation.</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Responded Quotation Details</h5>
+                    <table id="responded" class="display" style="width:100%">
+                        <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>About Company</th>
+                            <th>About Project</th>
+                            <th width="30%">Responded Message</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for q in responded %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+                                <td>{{ q.fname }} {{ q.lname }}</td>
+                                <td>{{ q.email }}</td>
+                                <td>{{ q.phone }}</td>
+                                <td>{{ q.about_company }}</td>
+                                <td>{{ q.about_project }}</td>
+                                <td>{{ q.respmessage }}</td>
+                                <td><a href="{% url 'admindelquotations' q.id %}"
+                                       onclick="return confirm('Are you sure want to delete this?')"
+                                       class="btn btn-danger btn-sm">Delete</a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                        <tfoot>
+                        <tr>
+                            <th>SN</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>About Company</th>
+                            <th>About Project</th>
+                            <th>Responded Message</th>
+                            <th>Actions</th>
+                        </tr>
+                        </tfoot>
+                    </table>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block 'scripts' %}
+    <script src="{% static 'adminpanel/js/pages/datatables.js' %}"></script>
+    <script src="{% static 'landingpage/js/jquery.validate.min.js' %}"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            $("#toResp").hide();
+            $(".responseText").hide();
+            var email;
+            var buttons = document.getElementsByClassName('respondThis');
+            for (var i in Object.keys(buttons)) {
+                buttons[i].onclick = function () {
+                    $("#toResp").show();
+                    email = this.value;
+                    document.getElementById('emailTitle').innerHTML = email;
+                };
+            }
+            $("form[name='response']").validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    subject: {
+                        required: true
+                    },
+                    message: {
+                        required: true
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    subject: "Please enter the subject",
+                    message: "Please enter the message"
+                },
+            });
+            $('.response').hide();
+            $('#loader').hide();
+            var formData = new FormData();
+            // Wait for the DOM to be ready
+            $(document).on('click', '#sendBtn', function (e) {
+                formData.append('email', email)
+                formData.append('subject', $('#subject').val())
+                formData.append('message', $('#message').val())
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                if ($("form[name='response']").valid()) {
+                    $('#subject').prop("disabled", true);
+                    $('#message').prop("disabled", true);
+                    $('#sendBtn').hide();
+                    $('#loader').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url "adminquotations" %}',
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        success: function (resp) {
+                            if (resp === "200") {
+                                $('.responseForm').hide();
+                                $('.responseText').show();
+                                var clsvalue = email.split(" ");
+                                $("table#zero-conf tr[class~='" + email + "'],[class~='" + clsvalue[1] + "']").remove();
+                                setTimeout(function () {
+                                    $("#toResp").hide();
+                                }, 6000);
+                                //window.location.href = "{% url 'contacts' %}";
+                            }
+                        },
+                        error: function (xhr, errmsg, err) {
+                            alert('error occured');
+                            console.log(xhr.status + ":" + xhr.responseText)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

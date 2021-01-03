@@ -1,0 +1,120 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Add Images to project{% endblock %}
+{% load static %}
+{% block 'style' %}
+    <link href="{% static 'adminpanel/css/filepond.css' %}" rel="stylesheet">
+    <link href="{% static 'adminpanel/plugins/select2/css/select2.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block 'body' %}
+<div class="main-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="page-title">
+                <p class="page-desc">Select the project that you want to add pictures</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Upload project images.</h5>
+                    <form action="">
+                        <div class="form-group">
+                            <label for="project">Select Project<span class="text-danger">*</span></label>
+                            <select class="js-states form-control" id="project" required tabindex="-1" style="display: none; width: 100%">
+                                <optgroup label="All Projects">
+                                    {% for p in data %}
+                                        <option value="{{ p.id }}">{{ p.client }}</option>
+                                    {% endfor %}
+
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="imagesbox">Images</label>
+                            <input type="file" required multiple>
+                        </div>
+                        <div class="form-group">
+                            <button type="button" id="saveBtn" class="btn btn-primary">Save</button>
+                            <a href="{% url 'adminprojects' %}" class="btn btn-danger">Cancel</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var files = []
+            FilePond.registerPlugin(FilePondPluginFileValidateSize);
+            FilePond.registerPlugin(FilePondPluginFileValidateType);
+            FilePond.setOptions({
+                allowMultiple: true,
+                maxFileSize: '2MB',
+
+            })
+            const inputElement = document.querySelector('input[type="file"]');
+            const pond = FilePond.create( inputElement, {
+                acceptedFileTypes: ['image/png', 'image/jpeg', 'image/jpg'],
+                onaddfile: (err, fileItem) => {
+                    if(!err){
+                        files.push(fileItem.file)
+                    }
+                    console.log(files)
+                },
+                onremovefile: (err, fileItem) => {
+                    const index = files.indexOf(fileItem.file)
+                    if (index > -1){
+                        files.splice(index, 1)
+                    }
+                    console.log(files)
+                }
+            } );
+
+            var formData = new FormData();
+            $(document).on('click', '#saveBtn', function (e) {
+                if (files.length===0){
+                    alert('Please select atleast one image.');
+                    return false;
+                }
+                formData.append('length', files.length)
+                formData.append('project', $('#project').val())
+                for (let i=0; i < files.length; i++){
+                    formData.append('images' + i, files[i])
+                }
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "addprojectimage" %}',
+                    data: formData,
+                    cache: false,
+                    processData: false,
+                    contentType: false,
+                    enctype: 'multipart/form-data',
+                    success: function (){
+                        alert('images added successfully');
+                        window.location.href = "{% url 'adminprojects' %}";
+                    },
+                    error: function (xhr, errmsg, err){
+                        alert('error occured');
+                        console.log(xhr.status + ":" + xhr.responseText)
+                    }
+                });
+            });
+        });
+
+
+    </script>
+
+</div>
+{% endblock %}
+{% block 'scripts' %}
+        <script src="{% static 'adminpanel/plugins/select2/js/select2.full.min.js' %}"></script>
+        <script src="{% static 'adminpanel/js/pages/select2.js' %}"></script>
+        <script src="{% static 'adminpanel/js/filepond.js' %}"></script>
+        <script src="{% static 'adminpanel/js/filepond-plugin-file-validate-size.js' %}"></script>
+        <script src="{% static 'adminpanel/js/filepond-plugin-file-validate-type.js' %}"></script>
+{% endblock %}

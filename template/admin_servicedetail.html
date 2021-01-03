@@ -1,0 +1,61 @@
+{% extends 'base/adminbase.html' %}
+{% block 'body' %}
+    <div class="row">
+        <div class="col-xl">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">List of Services with details</h5>
+                    <table class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">SN.</th>
+                                <th scope="col" width="100px">Title</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Description</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ forloop.counter }}
+                        {% for d in data %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td width="15%">{{ d.title }}</td>
+                                <td>{{ d.image }}</td>
+                                <td width="40%">{{ d.descriptions }}</td>
+                                <td><a href="{% url 'editservicedetails' d.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
+                                    <a href="{% url 'delservicedetails' d.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addservices">Add More Service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Service Modal -->
+    <div class="modal fade" id="addservices" tabindex="-1" role="dialog" aria-labelledby="addservices" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

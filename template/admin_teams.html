@@ -1,0 +1,182 @@
+{% extends 'base/adminbase.html' %}
+{% load static %}
+{% block 'style' %}
+    <link href="{% static 'adminpanel/plugins/DataTables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block 'title' %}Team Members{% endblock %}
+{% block 'body' %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Manage Categories</h2>
+                    <table id="responded" class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">SN.</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ forloop.counter }}
+                        {% for c in category %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td width="40%">{{ c.category }}</td>
+                                <td><a href="{% url 'editservicedetails' c.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
+                                    <a href="{% url 'delservicedetails' c.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addcategory">Add More Categories</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Manage Sub Categories</h2>
+                    <table id="zero-conf" class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">SN.</th>
+                                <th scope="col">Sub Catagories</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ forloop.counter }}
+                        {% for s in subcategory %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td width="30%">{{ s.subcategory }}</td>
+                                <td width="25%">{{ s.category }}</td>
+                                <td><a href="{% url 'editservicedetails' s.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
+                                    <a href="{% url 'delservicedetails' s.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addsubcategory">Add More Sub Categories</button>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title">Manage Teams</h2>
+                    <table id="teams" class="table">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th scope="col">SN.</th>
+                                <th scope="col">Name</th>
+                                <th scope="col">Qualification</th>
+                                <th scope="col">Experience</th>
+                                <th scope="col">Category</th>
+                                <th scope="col">Sub Category</th>
+                                <th scope="col">Image</th>
+                                <th scope="col">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {{ forloop.counter }}
+                        {% for t in teams %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ t.name }}</td>
+                                <td>{{ t.qualification }}</td>
+                                <td>{{ t.experience }}</td>
+                                <td>{{ t.category }}</td>
+                                <td>{{ t.subcategory }}</td>
+                                <td>{{ t.image }}</td>
+                                <td><a href="{% url 'editservicedetails' t.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
+                                    <a href="{% url 'delservicedetails' t.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addteams">Add More Team Members</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Add Category Modal -->
+    <div class="modal fade" id="addcategory" tabindex="-1" role="dialog" aria-labelledby="addcategory" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {{ categoryform.as_p }}
+                        <input type="text" name="type" value="category" hidden>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Sub Category Modal -->
+    <div class="modal fade" id="addsubcategory" tabindex="-1" role="dialog" aria-labelledby="addsubcategory" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Sub Category</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {{ subcategoryform.as_p }}
+                        <input type="text" name="type" value="subcategory" hidden>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Teams Modal -->
+    <div class="modal fade" id="addteams" tabindex="-1" role="dialog" aria-labelledby="addteams" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Teams</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {{ teamsform.as_p }}
+                        <input type="text" name="type" value="team" hidden>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block 'scripts' %}
+    <script src="{% static 'adminpanel/js/pages/datatables.js' %}"></script>
+{% endblock %}

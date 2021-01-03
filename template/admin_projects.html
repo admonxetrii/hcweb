@@ -1,0 +1,79 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Projects{% endblock %}
+{% load static %}
+{% block 'style' %}
+    <link href="{% static 'adminpanel/plugins/DataTables/datatables.min.css' %}" rel="stylesheet">
+{% endblock %}
+{% block 'body' %}
+<div class="row">
+    <div class="col">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">All Projects</h5>
+                <table id="zero-conf" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>SN</th>
+                            <th>Client</th>
+                            <th>Location</th>
+                            <th>Nature of Work</th>
+                            <th>Contract No.</th>
+                            <th>Value of Work</th>
+                            <th>Contract Period</th>
+                            <th>Date of Start</th>
+                            <th>Date of Completed</th>
+                            <th>% of Completed</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                            <script type="text/javascript">var count=0;</script>
+                        {% for p in data %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ p.client }}</td>
+                            <td>{{ p.location }}</td>
+                            <td>{{ p.nature_of_work }}</td>
+                            <td>{{ p.contract_number }}</td>
+                            <td>{{ p.value_of_work }}</td>
+                            <td>{{ p.contract_period }}</td>
+                            <td>{{ p.date_of_start }}</td>
+                            <td>{{ p.date_of_complete }}</td>
+                            <td>{{ p.percentage_of_complete }}</td>
+                            <td><a href="{% url 'editproject' p.id %}" class="btn btn-info btn-sm">Edit</a> | <a href="{% url 'delproject' p.id %}" onclick="return confirm('Are you sure want to delete this?')" class="btn btn-danger btn-sm">Delete</a></td>
+                        </tr>
+                            <script type="text/javascript">count++;</script>
+                        {% endfor %}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>SN</th>
+                            <th>Client</th>
+                            <th>Location</th>
+                            <th>Nature of Work</th>
+                            <th>Contract No.</th>
+                            <th>Value of Work</th>
+                            <th>Contract Period</th>
+                            <th>Date of Start</th>
+                            <th>Date of Completed</th>
+                            <th>% of Completed</th>
+                            <th>Actions</th>
+                        </tr>
+                    </tfoot>
+                </table>
+                <br>
+                <script type="text/javascript">
+                    if(count===0){
+                        $('#addimages').hide();
+                    }
+                </script>
+                <a href="{% url 'addprojects' %}" class="btn btn-primary">Add Projects</a>
+                <a href="{% url 'addprojectimage' %}" id="addimages" class="btn btn-success">Add Images of Project</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block 'scripts' %}
+    <script src="{% static 'adminpanel/js/pages/datatables.js' %}"></script>
+{% endblock %}

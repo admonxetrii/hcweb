@@ -1,0 +1,51 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Projects{% endblock %}
+{% load static %}
+{% block 'body' %}
+<div class="main-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Home Slider</h1>
+        </div>
+    </div>
+    <div class="row">
+        {% for s in data %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{ s.image.url }}" class="card-img-top" alt="Placeholder">
+                <div class="card-body">
+                    <h5 class="card-title">{{ s.title }}</h5>
+                    <p class="card-text">{{ s.subtitle }}</p>
+                    <a href="{% url 'edithomeslider' s.id %}" class="btn btn-info">Edit</a> | <a href="{% url 'delhomeslider' s.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addslider">Add Slider</button>
+
+
+    <!-- Add Slider Modal -->
+    <div class="modal fade" id="addslider" tabindex="-1" role="dialog" aria-labelledby="addservices" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Service Details</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        {{ form.as_p }}
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

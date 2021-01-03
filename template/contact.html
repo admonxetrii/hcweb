@@ -1,0 +1,259 @@
+{% extends 'base/landingbase.html' %}
+{% load static %}
+{% block 'styles' %}
+    <style>
+        .error{
+            color: darkred;
+        }
+    </style>{% endblock %}
+{% block 'title' %}Contact Us{% endblock %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                {% for f in flex %}
+                    <li style="background-image: url({{ f.image.url }});">
+                {% endfor %}
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h1>Contact us</h1>
+                                <h2><a href="{% url 'home' %}">Home</a> - Contact</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div id="pycemon-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-10 col-md-offset-1 animate-box">
+                    <h2>Contact Information</h2>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="contact-info-wrap-flex">
+                                <div class="con-info">
+                                    <p><span><i class="icon-location-2"></i></span> Sainbu, Bhaisepati, Lalitpur-25 <br>
+                                        Lalitpur 44700</p>
+                                </div>
+                                <div class="con-info">
+                                    <p><span><i class="icon-phone3"></i></span> <a href="tel://015593209">+
+                                        977-01-5593209</a></p>
+                                </div>
+                                <div class="con-info">
+                                    <p><span><i class="icon-paperplane"></i></span> <a
+                                            href="mailto:hcprojects.nepal@gmail.com" style="width: auto">hcprojects.nepal
+                                        @gmail.com</a>
+                                    </p>
+                                </div>
+                                <div class="con-info">
+                                    <p><span><i class="icon-globe"></i></span> <a href="#">hanumanconstruction .com</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10 col-md-offset-1 animate-box">
+                    <h2>Get In Touch</h2>
+                    <div class="forms">
+                        {% include 'component/message.html' %}
+                        <form method="post" name="contact">
+                            <div class="row form-group">
+                                <div class="col-md-6">
+                                    <!-- <label for="fname">First Name</label> -->
+                                    <input type="text" id="fname" name="fname" required class="form-control"
+                                           placeholder="Your firstname*">
+                                </div>
+                                <div class="col-md-6">
+                                    <!-- <label for="lname">Last Name</label> -->
+                                    <input type="text" id="lname" name="lname" required class="form-control"
+                                           placeholder="Your lastname*">
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <!-- <label for="email">Email</label> -->
+                                    <input type="text" id="email" name="toemail" required class="form-control"
+                                           placeholder="Your email address*">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <!-- <label for="phone">Contact Number</label> -->
+                                    <input type="tel" id="phone" name="phone" maxlength="10" required
+                                           class="form-control" placeholder="Your contact number*">
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <!-- <label for="subject">Subject</label> -->
+                                    <input type="text" id="subject" class="form-control" required name="subject"
+                                           placeholder="Your subject of this message*">
+                                </div>
+                            </div>
+
+                            <div class="row form-group">
+                                <div class="col-md-12">
+                                    <!-- <label for="datamsg">Message</label> -->
+                                    <textarea name="datamsg" id="datamsg" cols="30" rows="10" required
+                                              class="form-control" placeholder="Say something about us*"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="button" id="contactBtn" class="btn btn-primary">Send Message</button>
+                                <button type="button" id="loader" class="btn btn-secondary"><img
+                                        src="{% static 'landingpage/images/sending.gif' %}" height="20px"
+                                        alt="submitting"><span class=""> Sending...</span></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="response">
+                        <strong class="h2">Thank you! Your message has been sent. We will reply you as soon as possible.
+                            Please check your email for confirmation.</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {#		<div id="map" class="pycemon-map"></div>#}
+    {#    <div class="mapouter">#}
+    {#        <div class="gmap_canvas">#}
+    {#            <iframe width="100%" height="500" id="gmap_canvas"#}
+    {#                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1767.1526243212247!2d85.3052559405896!3d27.646026106123657!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDM4JzQzLjEiTiA4NcKwMTgnMTYuNiJF!5e0!3m2!1sen!2snp!4v1609528626659!5m2!1sen!2snp"></iframe>#}
+    {#        <style>#}
+    {#        .mapouter {#}
+    {#            position: relative;#}
+    {#            text-align: right;#}
+    {#            height: 500px;#}
+    {#            width: 100%;#}
+    {#        }#}
+    {##}
+    {#        .gmap_canvas {#}
+    {#            overflow: hidden;#}
+    {#            background: none !important;#}
+    {#            height: 500px;#}
+    {#            width: 100%;#}
+    {#        }</style>#}
+    {#    </div>#}
+{% endblock %}
+{% block 'scripts' %}
+    <script src="{% static 'landingpage/js/jquery.validate.min.js' %}"></script>
+
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function () {
+            $("form[name='contact']").validate({
+                // Specify validation rules
+                rules: {
+                    // The key name on the left side is the name attribute
+                    // of an input field. Validation rules are defined
+                    // on the right side
+                    fname: "required",
+                    lname: "required",
+                    toemail: {
+                        required: true,
+                        // Specify that email should be validated
+                        // by the built-in "email" rule
+                        email: true,
+                        remote: {
+                            url: "{% url 'checkemailc' %}",
+                            data: {'csrfmiddlewaretoken': '{{ csrf_token }}'},
+                            type: "post"
+                         }
+                    },
+                    phone: {
+                        required: true,
+                        maxlength: 10,
+                        minlength: 10
+                    },
+                    subject: {
+                        required: true,
+                        minlength: 15,
+                        maxlength: 500
+                    },
+                    datamsg: {
+                        required: true,
+                        minlength: 20,
+                        maxlength: 1000
+                    }
+                },
+                // Specify validation error messages
+                messages: {
+                    fname: "Please enter your first name.",
+                    lname: "Please enter your last name.",
+                    phone: {
+                        required: "Please provide a phone number.",
+                        maxlength: "Max length is 10 digit."
+                    },
+                    toemail: {
+                        required: "Please enter your email address.",
+                        email: "Please enter a valid email address.",
+                        remote: "You have already contacted! Please wait for the response by our team."
+                    },
+                    subject: {
+                        required: "Please enter the subject of the matter.",
+                        minlength: "Should be at least 15 characters long.",
+                        maxlength: "Should not be more than 500 characters long."
+                    },
+                    datamsg: {
+                        required: "Say something about why you want to contact us.",
+                        minlength: "Should be at least 20 characters long.",
+                        maxlength: "Should not be more than 1000 characters long."
+                    }
+                },
+            });
+            $('.response').hide();
+            $('#loader').hide();
+            var formData = new FormData();
+            // Wait for the DOM to be ready
+            $(document).on('click', '#contactBtn', function (e) {
+                formData.append('fname', $('#fname').val())
+                formData.append('lname', $('#lname').val())
+                formData.append('toemail', $('#email').val())
+                formData.append('phone', $('#phone').val())
+                formData.append('subject', $('#subject').val())
+                formData.append('datamsg', $('#datamsg').val())
+                formData.append('csrfmiddlewaretoken', '{{ csrf_token }}')
+                console.log(formData)
+                if ($("form[name='contact']").valid()) {
+                    $('#fname').prop("disabled", true);
+                    $('#lname').prop("disabled", true);
+                    $('#email').prop("disabled", true);
+                    $('#phone').prop("disabled", true);
+                    $('#subject').prop("disabled", true);
+                    $('#datamsg').prop("disabled", true);
+                    $('#contactBtn').hide();
+                    $('#loader').show();
+                    $.ajax({
+                        type: 'POST',
+                        url: '{% url "contacts" %}',
+                        data: formData,
+                        cache: false,
+                        processData: false,
+                        contentType: false,
+                        enctype: 'multipart/form-data',
+                        success: function (resp) {
+                            if (resp === "200") {
+                                $('.forms').hide();
+                                $('.response').show();
+                                //window.location.href = "{% url 'contacts' %}";
+                            }
+                        },
+                        error: function (xhr, errmsg, err) {
+                            alert('error occured');
+                            console.log(xhr.status + ":" + xhr.responseText)
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+{% endblock %}

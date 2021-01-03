@@ -1,0 +1,131 @@
+{% extends 'base/landingbase.html' %}
+{% block 'title' %}{{ project.client }}{% endblock %}
+{% load static %}
+{% block 'styles' %}
+    <link rel="stylesheet" href="{% static 'landingpage/css/lightbox.min.css' %}">
+    <script src="{% static 'landingpage/js/lightbox-plus-jquery.min.js' %}"></script>
+    <style>
+        .gallery{
+            transition: .5s;
+        }
+        .gallery a:hover{
+            filter: grayscale(100%);
+            transform: scale(1.1);
+        }
+    </style>
+{% endblock %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                <li style="background-image: url({{ project.cover_image.url }});">
+                    <div class="overlay"></div>
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                                <div class="slider-text-inner text-center">
+                                    <h1>{{ project.client }}</h1>
+                                    <h2><a href="{% url 'home' %}">Home</a> - <a href="{% url 'projects' %}">Project</a>
+                                    </h2>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div id="pycemon-project">
+        <div class="container">
+            <div class="row row-pb-lg">
+                <div class="col-md-8 animate-box">
+                    <img class="img-responsive project-single" src="{{ project.cover_image.url }}">
+                    <div class="thumb-wrap" >
+                        <div class="row">
+                            <div class="gallery" id="img-gallery">
+                                <a href="{{project.cover_image.url}}" data-lightbox="mygallary" data-title="{{ project.client }}" class="thumb-img" style="background-image: url({{ project.cover_image.url }}); display: none"></a>
+                                {% for image in images %}
+                                <div class="col-md-3 col-sm-3 col-xs-6">
+                                    <a href="{{image.image.url}}" data-lightbox="mygallary" data-title="{{ project.client }}" class="thumb-img" style="background-image: url({{ image.image.url }})"></a>
+                                </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 animate-box">
+                    <div class="project-single-desc">
+                        <h2>Project Details</h2>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Client:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.client }}</span></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Location:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.location }}</span></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Contract No:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.contract_number }}</span></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Value of Work:</strong></div>
+                            <div class="col-md-8"><span class="title-2">Rs. {{ project.value_of_work }}</span></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Contract Period:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.contract_period }} months</span></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Date of Start:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.date_of_start }}</span></div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Date of Complete:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.date_of_complete }}</span></div>
+                        </div>
+                        {% if project.is_completed == False %}
+                        <br>
+                        <div class="row">
+                            <div class="col-md-4"><strong class="title">Percentage of Complete:</strong></div>
+                            <div class="col-md-8"><span class="title-2">{{ project.percentage_of_complete }}%</span></div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
+                    <h2>recent projects</h2>
+                    <p>View Hanuman construction's latest projects.</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for p in recentp %}
+                    <div class="col-md-4 animate-box">
+                        <div class="project-entry">
+                            <a href="{% url 'singleproject' p.id %}" class="project-img text-center"
+                               style="background-image: url({{ p.cover_image.url }});">
+                                <span class="icon"><i class="icon-search2"></i></span>
+                            </a>
+                            <div class="desc">
+                                <h3><a href="{% url 'singleproject' p.id %}">{{ p.client|slice:":27" }}...</a></h3>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    {% block 'scripts' %}
+
+    {% endblock %}
+{% endblock %}

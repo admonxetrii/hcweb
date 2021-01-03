@@ -1,0 +1,113 @@
+{% extends 'base/landingbase.html' %}
+{% block 'title' %}Projects{% endblock %}
+{% load static %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                {% for f in flex %}
+                    <li style="background-image: url({{ f.image.url }});">
+                {% endfor %}
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h1>Project</h1>
+                                <h2><a href="{% url 'home' %}">Home</a> - Project</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div id="pycemon-project">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 animate-box">
+                    <div class="row">
+                        <h2>Completed Projects</h2>
+                        {% for p in comp %}
+                            <div class="col-md-12 center-block animate-box">
+                                <div class="project-entry">
+                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({{ p.cover_image.url }}); height: 150px">
+                                        <span class="icon"><i class="icon-search2"></i></span>
+                                    </a>
+                                    <div class="desc">
+                                        <table class="text-center" width="100%" border=".5rem" style="font-size: x-small;" >
+                                            <tr>
+                                               <th colspan="6">{{ forloop.counter }}. {{ p.client }}</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><strong>Location:</strong> {{ p.location }}</td>
+                                                <td colspan="4"><strong>Nature of work:</strong> {{ p.nature_of_work }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th width="25%">Contract Number</th>
+                                                <th width="20%">Value of Work(Nrs)</th>
+                                                <th width="15%">Contract Period</th>
+                                                <th width="20%">Date of Start</th>
+                                                <th width="20%">Date of Complete</th>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">{{ p.contract_number }}</td>
+                                                <td width="20%">{{ p.value_of_work }}</td>
+                                                <td width="15%">{{ p.contract_period }} months</td>
+                                                <td width="20%">{{ p.date_of_start }}</td>
+                                                <td width="20%">{{ p.date_of_complete }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-md-6 box animate-box">
+                    <div class="row">
+                        <h2>Under Progress Projects</h2>
+                        {% for p in underp %}
+                            <div class="col-md-12 center-block animate-box">
+                                <div class="project-entry">
+                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({{ p.cover_image.url }}); height: 150px">
+                                        <span class="icon"><i class="icon-search2"></i></span>
+                                    </a>
+                                    <div class="desc">
+                                         <table  class="text-center" width="100%" border=".5rem" style="font-size: x-small;" >
+                                            <tr>
+                                               <th colspan="6">{{ forloop.counter }}. {{ p.client }}</th>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><strong>Location:</strong> {{ p.location }}</td>
+                                                <td colspan="4"><strong>Nature of work:</strong> {{ p.nature_of_work }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th width="25%">Contract Number</th>
+                                                <th width="15%">Value of Work(Nrs)</th>
+                                                <th width="15%">Contract Period</th>
+                                                <th width="15%">Date of Start</th>
+                                                <th width="15%">Date of Complete</th>
+                                                <th width="15%">% of Complete</th>
+                                            </tr>
+                                            <tr>
+                                                <td width="25%">{{ p.contract_number }}</td>
+                                                <td width="15%">{{ p.value_of_work }}</td>
+                                                <td width="15%">{{ p.contract_period }} months</td>
+                                                <td width="15%">{{ p.date_of_start }}</td>
+                                                <td width="15%">{{ p.date_of_complete }}</td>
+                                                <td width="15%">{{ p.percentage_of_complete }}</td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

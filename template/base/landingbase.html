@@ -1,0 +1,250 @@
+<!DOCTYPE HTML>
+<html lang="en">
+{% load static %}
+	<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>{% block 'title' %}{% endblock %}</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="best Construction Company in Nepal" />
+	<meta name="keywords" content="Hanuman Construction" />
+	<meta name="author" content="Nisham Wagle" />
+
+  <!-- Facebook and Twitter integration -->
+	<meta property="og:title" content=""/>
+	<meta property="og:image" content=""/>
+	<meta property="og:url" content=""/>
+	<meta property="og:site_name" content=""/>
+	<meta property="og:description" content=""/>
+	<meta name="twitter:title" content="" />
+	<meta name="twitter:image" content="" />
+	<meta name="twitter:url" content="" />
+	<meta name="twitter:card" content="" />
+
+	<link href="https://fonts.googleapis.com/css?family=Poppins:200,300,400,500,700" rel="stylesheet">
+
+	<!-- Animate.css -->
+	<link rel="stylesheet" href="{% static 'landingpage/css/animate.css' %}">
+	<!-- Icomoon Icon Fonts-->
+	<link rel="stylesheet" href="{% static 'landingpage/css/icomoon.css' %}">
+	<!-- Bootstrap  -->
+	<link rel="stylesheet" href="{% static 'landingpage/css/bootstrap.css' %}">
+
+	<!-- Magnific Popup -->
+	<link rel="stylesheet" href="{% static 'landingpage/css/magnific-popup.css' %}">
+
+	<!-- Flexslider  -->
+	<link rel="stylesheet" href="{% static 'landingpage/css/flexslider.css' %}">
+
+	<!-- Owl Carousel -->
+	<link rel="stylesheet" href="{% static 'landingpage/css/owl.carousel.min.css' %}">
+	<link rel="stylesheet" href="{% static 'landingpage/css/owl.theme.default.min.css' %}">
+
+	<!-- Flaticons  -->
+	<link rel="stylesheet" href="{% static 'landingpage/fonts/flaticon/font/flaticon.css' %}">
+
+	<!-- Theme style  -->
+	<link rel="stylesheet" href="{% static 'landingpage/css/style.css' %}">
+
+	<!-- Modernizr JS -->
+	<script src="{% static 'landingpage/js/modernizr-2.6.2.min.js' %}"></script>
+
+    {% block 'styles' %}{% endblock %}
+
+	</head>
+	<body>
+	<div class="pycemon-loader"></div>
+
+	<div id="page">
+		<nav class="pycemon-nav" role="navigation">
+			<div class="top-menu">
+				<div class="container">
+					<div class="row">
+						<div class="col-xs-2">
+							<div id="pycemon-logo">
+								<!-- <a href="index.html">Hanuman Construction</a> -->
+                                <a href="{% url 'home' %}"><img src="{% static 'landingpage/images/hc-group-white.png' %}" alt="Hanuman Construction" width="200px"></a>
+							</div>
+						</div>
+						<div class="col-xs-10 text-right menu-1">
+							<ul>
+								<li {% if request.get_full_path == '/' %} class="active" {% endif %}><a href="{% url 'home' %}">Home</a></li>
+								<li class="{% if request.get_full_path == '/projects/' %} active{% endif %}" >
+									<a href="{% url 'projects' %}">Projects</a>
+								</li>
+								<li><a href="services.html">Services</a></li>
+								<li {% if request.get_full_path == '/about/' %} class="active" {% endif %}><a href="{% url 'about' %}">About</a></li>
+								<li {% if request.get_full_path == '/contact-us/' %} class="active" {% endif %}><a href="{% url 'contacts' %}">Contact</a></li>
+								<li {% if request.get_full_path == '/quotation-request/' %} class="active" {% endif %}><a href="{% url 'quotations' %}"><button class="btn btn-primary btn-sm">Quatation</button></a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</nav>
+
+
+		{% block 'body' %}
+
+        {% endblock %}
+
+        <div id="pycemon-subscribe">
+			<div class="overlay"></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
+						<h2>Subscribe Newsletter</h2>
+						<p>Subscribe our newsletter and get latest update</p>
+					</div>
+				</div>
+				<div class="row animate-box">
+					<div class="col-md-6 col-md-offset-3">
+						<div class="row">
+							<form class="form-inline qbstp-header-subscribe">
+								<div class="col-three-forth">
+									<div class="form-group">
+										<input type="text" class="form-control" id="email" placeholder="Enter your email">
+									</div>
+								</div>
+								<div class="col-one-third">
+									<div class="form-group">
+										<button type="submit" class="btn btn-primary">Subscribe Now</button>
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer id="pycemon-footer">
+			<div class="contact-information">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-8 col-md-offset-2">
+							<div class="row">
+								<div class="col-md-4 text-center">
+									<div class="info-wrap">
+										<span class="icon"><i class="icon-location4"></i></span>
+										<p>Lalitpur - 25, <br> Nepal 44600</p>
+									</div>
+								</div>
+								<div class="col-md-4 text-center">
+									<div class="info-wrap">
+										<span class="icon"><i class="icon-world"></i></span>
+										<p><a href="mailto:hcprojects.nepal@gmail.com">hcprojects.nepal@gmail.com</a> <br> <a href="{% url 'home' %}">www.hanumanconstruction.com</a></p>
+									</div>
+								</div>
+								<div class="col-md-4 text-center">
+									<div class="info-wrap">
+										<span class="icon"><i class="icon-phone2"></i></span>
+                                        <p><a href="tel:977-01-5593209">+977-01-5593209</a> </p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="row row-pb-md">
+					<div class="col-md-3 pycemon-widget">
+						<h4>About Hanuman Construction</h4>
+						<p>Hanuman Construction is presently an established Company in Nepal and has
+                            constructed many prestigious projects in Nepal under some reputed Clients of both the
+                            Government and Private Sector all over Nepal.</p>
+						<p>
+							<ul class="pycemon-social-icons">
+								<li><a href="#"><i class="icon-twitter"></i></a></li>
+								<li><a href="#"><i class="icon-facebook"></i></a></li>
+								<li><a href="#"><i class="icon-linkedin"></i></a></li>
+								<li><a href="#"><i class="icon-dribbble"></i></a></li>
+							</ul>
+						</p>
+					</div>
+					<div class="col-md-3 col-md-push-1 pycemon-widget">
+						<h4>Information</h4>
+						<p>
+							<ul class="pycemon-footer-links">
+								<li><a href="{% url 'about' %}"><i class="icon-check"></i> Our Company</a></li>
+								<li><a href="#"><i class="icon-check"></i> Certification</a></li>
+								<li><a href="#"><i class="icon-check"></i> Our services</a></li>
+								<li><a href="#"><i class="icon-check"></i> Career</a></li>
+								<li><a href="#"><i class="icon-check"></i> Core Values</a></li>
+								<li><a href="#"><i class="icon-check"></i> Company History</a></li>
+								<li><a href="#"><i class="icon-check"></i> FAQ</a></li>
+							</ul>
+						</p>
+					</div>
+
+					<div class="col-md-3 pycemon-widget">
+						<h4>Instagram</h4>
+						<div class="instagram">
+							<a href="#" class="insta-img" style="background-image: url({% static 'landingpage/images/building-1.jpg' %});"></a>
+							<a href="#" class="insta-img" style="background-image: url({% static 'landingpage/images/building-2.jpg' %});"></a>
+							<a href="#" class="insta-img" style="background-image: url({% static 'landingpage/images/building-3.jpg' %});"></a>
+							<a href="#" class="insta-img" style="background-image: url({% static 'landingpage/images/building-4.jpg' %});"></a>
+							<a href="#" class="insta-img" style="background-image: url({% static 'landingpage/images/building-5.jpg' %});"></a>
+							<a href="#" class="insta-img" style="background-image: url({% static 'landingpage/images/building-6.jpg' %});"></a>
+						</div>
+					</div>
+
+					<div class="col-md-3 col-md-push-1 pycemon-widget">
+						<h4>Contact Info</h4>
+						<ul class="pycemon-footer-links">
+							<li>Lalitpur -25, <br> Lalitpur, Nepal 44600</li>
+							<li><a href="tel://977-01-5593209"><i class="icon-phone"></i> + 977-01-5593209</a></li>
+							<li><a href="mailto:hcprojects.nepal@gmail.com"><i class="icon-envelope"></i> hcprojects.nepal@gmail.com</a></li>
+							<li><a href="{% url 'home' %}"><i class="icon-globe2"></i> hanumanconstruction.com</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="copy">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-12 text-center">
+							<p>
+								<small class="block">
+									<!-- Link back to pycemon can't be removed. Template is licensed under CC BY 3.0. -->
+                                    Copyright &copy;<script>document.write(new Date().getFullYear());</script> | Made with <i class="icon-heart2"></i> by <a href="http://pycemontech.com.np" target="_blank">Pycemon Tech</a> &amp; distributed by <a href="http://nishamwagle.com.np" target="_blank">Nisham Wagle</a>
+                                    <!-- Link back to pycemon can't be removed. Template is licensed under CC BY 3.0. -->
+								</small>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
+
+	<div class="gototop js-top">
+		<a href="#" class="js-gotop"><i class="icon-arrow-up2"></i></a>
+	</div>
+
+	<!-- jQuery -->
+	<script src="{% static 'landingpage/js/jquery.min.js' %}"></script>
+	<!-- jQuery Easing -->
+	<script src="{% static 'landingpage/js/jquery.easing.1.3.js' %}"></script>
+	<!-- Bootstrap -->
+	<script src="{% static 'landingpage/js/bootstrap.min.js' %}"></script>
+	<!-- Waypoints -->
+	<script src="{% static 'landingpage/js/jquery.waypoints.min.js' %}"></script>
+	<!-- Stellar Parallax -->
+	<script src="{% static 'landingpage/js/jquery.stellar.min.js' %}"></script>
+	<!-- Flexslider -->
+	<script src="{% static 'landingpage/js/jquery.flexslider-min.js' %}"></script>
+	<!-- Owl carousel -->
+	<script src="{% static 'landingpage/js/owl.carousel.min.js' %}"></script>
+	<!-- Magnific Popup -->
+	<script src="{% static 'landingpage/js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'landingpage/js/magnific-popup-options.js' %}"></script>
+	<!-- Counters -->
+	<script src="{% static 'landingpage/js/jquery.countTo.js' %}"></script>
+	<!-- Main -->
+	<script src="{% static 'landingpage/js/main.js' %}"></script>
+
+    {% block 'scripts' %}{% endblock %}
+
+	</body>
+</html>

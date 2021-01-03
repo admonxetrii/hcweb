@@ -1,0 +1,117 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Add Project{% endblock %}
+{% block 'body' %}
+    <div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Add Projects</h5>
+                        <form method="post" action="{% url 'addprojects' %}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="client">Client</label>
+                                <input type="text" class="form-control" id="client" name="client"
+                                       aria-describedby="clientHelp" required placeholder="Enter Client Detail">
+                                <small id="clientHelp" class="form-text text-muted">Client is basically taken as the
+                                    Project title.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="location">Location</label>
+                                <input type="text" class="form-control" required id="location" name="location"
+                                       placeholder="Enter Location of the Project"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="nature">Nature of Work</label>
+                                <textarea class="form-control" id="nature" required name="nature"
+                                          aria-describedby="natureHelp"
+                                          rows="3" placeholder="Describe nature of project here..."></textarea>
+                                <small id="clientHelp" class="form-text text-muted">Provide the full details of the
+                                    project here.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="contractno">Contract Number</label>
+                                <input type="text" class="form-control" required id="contractno" name="contractno"
+                                       placeholder="Enter Contract Number...">
+                            </div>
+                            <div class="form-group">
+                                <label for="valueofwork">Value of Work</label>
+                                <input type="text" class="form-control" required id="valueofwork" name="valueofwork"
+                                       aria-describedby="vwHelp" placeholder="Enter Value of work in Numbers...">
+                                <small id="vwHelp" class="form-text text-muted">Provide the estimated value of the work
+                                    here.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="period">Contract Period</label>
+                                <input type="number" class="form-control" required min="1" max="100" id="period"
+                                       name="period"
+                                       placeholder="Enter contract period in months">
+                            </div>
+                            <div class="form-group">
+                                <label for="startdate">Date of Start</label>
+                                <input type="date" class="form-control" required id="startdate" name="startdate"
+                                       placeholder="Starting Date...">
+                            </div>
+                            <div class="form-group">
+                                <label for="enddate">Date of complete</label>
+                                <input type="date" value="0000/00/00" onclick="this.min=document.getElementById('startdate').value;this.value=document.getElementById('startdate').value;" required class="form-control" id="enddate" name="enddate"
+                                       placeholder="Completion Date...">
+
+                            </div>
+                            <div class="form-group" id="percentageofcmplt">
+                                <label for="percent">Percentage of complete</label>
+                                <input type="number" class="form-control" id="percent" name="percent"
+                                       placeholder="Enter Percentage Number">
+                            </div>
+                            <div class="custom-control custom-checkbox form-group">
+                                <input type="hidden" name="iscompleted" class="custom-control-input" value="0">
+                                <input type="checkbox" name="iscompleted" class="custom-control-input"
+                                       onclick="showMe('balancevalue');" value="1" id="iscompleted">
+                                <label class="custom-control-label" for="iscompleted">Is completed</label>
+                                <script type="text/javascript">
+                                    function showMe(box) {
+                                        var chboxs = document.getElementsByName("iscompleted");
+                                        console.log(chboxs.length);
+                                        var vis = "none";
+                                        var visp = "block";
+                                        var valueofp = 0;
+                                        for (var i = 0; i < chboxs.length; i++) {
+                                            if (chboxs[i].checked) {
+                                                vis = "block";
+                                                visp = "none";
+                                                valueofp = 100;
+                                                break;
+                                            }
+                                        }
+                                        document.getElementById(box).style.display = vis;
+                                        document.getElementById('percent').value = valueofp;
+                                        document.getElementById('percentageofcmplt').style.display = visp;
+                                        console.log(document.getElementById('percentageofcmplt').value)
+                                    }
+                                </script>
+                            </div>
+                            <div id="balancevalue" style="display: none">
+                                <div class="form-group">
+                                    <label for="completedwork">Value of Completed Work</label>
+                                    <input type="text" class="form-control" value="0" required onkeyup="document.getElementById('balance').value=document.getElementById('valueofwork').value-this.value;" id="completedwork"
+                                           name="completedwork"
+                                           placeholder="Value of completed work">
+                                </div>
+                                <div class="form-group">
+                                    <label for="balance">Balance Value</label>
+                                    <input type="text" value="0" class="form-control" required id="balance" name="balance"
+                                           placeholder="Balance of Value">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="coverimg">Cover image</label>
+                                <input type="file" name="coverimg" required class="form-control" id="coverimg">
+                            </div>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
