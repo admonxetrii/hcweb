@@ -1,0 +1,68 @@
+{% extends 'base/landingbase.html' %}
+{% load static %}
+{% block 'styles' %}
+    <style>
+        .error {
+            color: darkred;
+        }
+    </style>{% endblock %}
+{% block 'title' %}Team Members{% endblock %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                {% for f in flex %}
+                    <li style="background-image: url({{ f.image.url }});">
+                {% endfor %}
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h1>Team Members</h1>
+                                <h2><a href="{% url 'home' %}">Home</a> - Manpower</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="pycemon-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
+                    <h2>Our Team</h2>
+                    <p>Even the all-powerful Pointing has no control about the blind texts it is an almost
+                        unorthographic life One day however a small line of blind text by the name</p>
+                </div>
+            </div>
+            <div class="row">
+                {% for c in category %}
+                    <div class="col-md-12">
+                    <h4>{{ c.category }}</h4>
+                    <hr class="bold">
+                    <div class="row">
+                    {% for t in teams %}
+                        {% if t.category.id == c.id %}
+                            <div class="col-md-3 animate-box">
+                                <a href="#" class="staff-img staff-img2" style="background-image: url({% if t.image %}{{ t.image.url }}{% else %}{% static 'landingpage/images/default.jpg' %}{% endif %});">
+                                    <div class="desc-staff">
+                                        <h3>{{ t.name }}</h3>
+                                        <span>{{ t.subcategory }}</span><br>
+                                        <span>{{ t.qualification }}</span><br>
+                                        <span>{{ t.experience }}</span>
+                                    </div>
+                                </a>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                        <br><br>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

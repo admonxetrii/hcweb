@@ -1,0 +1,42 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Home Page content{% endblock %}
+{% block 'body' %}
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="text-danger">Home contents</h4>
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="projects">No. of Projects</label>
+                            <input type="text" value="{{ content.numberofprj }}" class="form-control" id="projects" name="projects"
+                                   aria-describedby="clientHelp" required placeholder="Enter Number of projects...">
+                        </div>
+                        <div class="form-group">
+                            <label for="employees">No. of Employees</label>
+                            <input type="text" value="{{ content.numberofemp }}" class="form-control" id="employees" name="employees"
+                                   aria-describedby="clientHelp" required placeholder="Enter Number of employees...">
+                        </div>
+                        <div class="form-group">
+                            <label for="ongoing">No. of Under Progress</label>
+                            <input type="text" value="{{ content.numberofconst }}" class="form-control" id="ongoing" name="ongoing"
+                                   aria-describedby="clientHelp" required placeholder="Enter Number of ongoing projects...">
+                        </div>
+                        <div class="form-group">
+                            <label for="partners">No. of Partners</label>
+                            <input type="text" value="{{ content.numberofpart }}" class="form-control" id="partners" name="partners"
+                                   aria-describedby="clientHelp" required placeholder="Enter Number of projects...">
+                        </div>
+                        <div class="form-group">
+                            <label for="coverimg">Backgroung image</label>
+                            <input type="file" value="{{ content.image }}" name="coverimg" class="form-control" id="coverimg">
+                        </div>
+                        {% csrf_token %}
+                        <button type="submit" onclick="return confirm('Are you sure want to edit?')" class="btn btn-primary">Edit</button>
+                        <a href="{% url 'adminprojects' %}" type="submit" onclick="return confirm('Are you sure want to Cancel?')" class="btn btn-danger">Cancel</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
