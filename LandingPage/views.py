@@ -2,7 +2,8 @@ import os, asyncio
 from asgiref.sync import sync_to_async
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from LandingPage.models import ServicesDetail, HomeSlider, Projects, ProjectsPictures
+from LandingPage.models import ServicesDetail, HomeSlider, Projects, ProjectsPictures, TeamMembers, StaffCategory, \
+    HomePageExtra
 from adminpanel.models import QuotationRequest, ContactDetails
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -16,12 +17,16 @@ from email.mime.image import MIMEImage
 
 
 def home(request):
+    teams = TeamMembers.objects.all()[:3]
     servicedetail = ServicesDetail.objects.all()
     homeslider = HomeSlider.objects.all()
     projects = Projects.objects.all().order_by('-id')[:5]
+    content = HomePageExtra.objects.get(id=1)
     context = {
+        'teams': teams,
         'servicedetail': servicedetail,
         'homeslider': homeslider,
+        'content': content,
         'projects': projects
     }
     return render(request, 'landing_index.html', context)
@@ -45,6 +50,18 @@ def projects(request):
         'flex': homeslider
     }
     return render(request, 'projects.html', context)
+
+
+def manpower(request):
+    homeslider = HomeSlider.objects.all()[:1]
+    teamcategory = StaffCategory.objects.all()
+    teams = TeamMembers.objects.all()
+    context = {
+        'flex': homeslider,
+        'category': teamcategory,
+        'teams': teams
+    }
+    return render(request, "teams.html", context)
 
 
 def singleprojects(request, id):
@@ -93,8 +110,8 @@ def contacts(request):
 
         emailcontext = {'fname': fname, 'lname': lname, 'email': toemail, 'phone': phone, 'type': 0}
 
-        # emailtouser(emailcontext)
-        # emailtooffice(emailcontext)
+        emailtouser(emailcontext)
+        emailtooffice(emailcontext)
 
         ContactDetails.objects.create(fname=fname, lname=lname, phone=phone, email=toemail, subject=subject,
                                       message=message, is_responded=0)
@@ -119,13 +136,25 @@ def quotations(request):
 
         emailcontext = {'fname': fname, 'lname': lname, 'email': toemail, 'phone': phone, 'type': 1}
 
-        # emailtouser(emailcontext)
-        # emailtooffice(emailcontext)
+        emailtouser(emailcontext)
+        emailtooffice(emailcontext)
 
         QuotationRequest.objects.create(fname=fname, lname=lname, phone=phone, email=toemail, about_company=company,
                                         about_project=project, is_responded=0)
         return HttpResponse('200')
     return render(request, 'quotation.html', context)
+
+
+def newsletter(request):
+    context = {
+        'fname': 'Anonymous',
+        'lname': 'User',
+        'email': request.POST['email'],
+        'phone': 'Null',
+        'type': 2
+    }
+    emailtouser(context)
+    return redirect('home')
 
 
 def emailtouser(context):
@@ -136,6 +165,9 @@ def emailtouser(context):
     elif context["type"] == 1:
         emailsubject = "Quotation request received."
         emailmessage = "Thank you for choosing Hanuman Construction. One of our staff will provide you the quotation requested very soon. Meanwhile visit our Projects page to find out completed projects and under progress projects. "
+    elif context["type"]==2:
+        emailsubject = "Thank you for subscribing the newsletter of Hanuman Construction"
+        emailmessage = "Thank you for subscribing Hanuman Construction. You will soon receive updates from the page directly to your email account. Meanwhile visit our Projects page to find out completed projects and under progress projects."
 
     html_content = render_to_string("email_template.html",
                                     {'fname': context["fname"], 'lname': context["lname"], 'toemail': context["email"],

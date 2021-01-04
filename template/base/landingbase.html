@@ -46,6 +46,25 @@
 	<!-- Theme style  -->
 	<link rel="stylesheet" href="{% static 'landingpage/css/style.css' %}">
 
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192"  href="{% static 'favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+
 	<!-- Modernizr JS -->
 	<script src="{% static 'landingpage/js/modernizr-2.6.2.min.js' %}"></script>
 
@@ -72,7 +91,7 @@
 								<li class="{% if request.get_full_path == '/projects/' %} active{% endif %}" >
 									<a href="{% url 'projects' %}">Projects</a>
 								</li>
-								<li><a href="services.html">Services</a></li>
+								<li {% if request.get_full_path == '/manpower/' %} class="active" {% endif %}><a href="{% url 'manpower' %}">Manpower</a></li>
 								<li {% if request.get_full_path == '/about/' %} class="active" {% endif %}><a href="{% url 'about' %}">About</a></li>
 								<li {% if request.get_full_path == '/contact-us/' %} class="active" {% endif %}><a href="{% url 'contacts' %}">Contact</a></li>
 								<li {% if request.get_full_path == '/quotation-request/' %} class="active" {% endif %}><a href="{% url 'quotations' %}"><button class="btn btn-primary btn-sm">Quatation</button></a></li>
@@ -100,15 +119,16 @@
 				<div class="row animate-box">
 					<div class="col-md-6 col-md-offset-3">
 						<div class="row">
-							<form class="form-inline qbstp-header-subscribe">
+							<form class="form-inline qbstp-header-subscribe" method="post" action="{% url 'newsletter' %}">
 								<div class="col-three-forth">
 									<div class="form-group">
-										<input type="text" class="form-control" id="email" placeholder="Enter your email">
+										<input type="text" name="email" class="form-control" id="email" placeholder="Enter your email">
 									</div>
 								</div>
+                                {% csrf_token %}
 								<div class="col-one-third">
 									<div class="form-group">
-										<button type="submit" class="btn btn-primary">Subscribe Now</button>
+										<button type="submit" class="btn btn-primary" onclick="alert('Thank you for subscribing the newsletter.')">Subscribe Now</button>
 									</div>
 								</div>
 							</form>

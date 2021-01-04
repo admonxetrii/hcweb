@@ -13,7 +13,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from .models import QuotationRequest, ContactDetails
-from LandingPage.models import ServicesDetail, HomeSlider, Projects, ProjectsPictures, StaffCategory, StaffSubCategory, TeamMembers
+from LandingPage.models import ServicesDetail, HomeSlider, Projects, ProjectsPictures, StaffCategory, StaffSubCategory, \
+    TeamMembers, HomePageExtra
 from .forms import ServiceDetailForm, HomeSliderForm, StaffCategoryForm, StaffSubCategoryForm, TeamMembersForms
 from django.contrib import messages
 
@@ -41,6 +42,31 @@ def signout(request):
     logout(request)
     messages.add_message(request, messages.ERROR, "You've been logged out!")
     return redirect('signin')
+
+@login_required(login_url='signin')
+def homepageextra(request):
+    contents = HomePageExtra.objects.get(id=1)
+    context = {
+        'content': contents
+    }
+    if request.method == 'POST':
+        projects = request.POST['projects']
+        employees = request.POST['employees']
+        ongoing = request.POST['ongoing']
+        partners = request.POST['partners']
+        contents.numberofprj = projects
+        contents.numberofemp = employees
+        contents.numberofconst = ongoing
+        contents.numberofpart = partners
+        try:
+            coverimg = request.FILES['coverimg']
+        except MultiValueDictKeyError:
+            coverimg = contents.image
+        if coverimg:
+            contents.image = coverimg
+        contents.save()
+        messages.add_message(request, messages.SUCCESS, "Data edited successfully.")
+    return render(request, "admin_extra.html", context)
 
 
 @login_required(login_url='signin')
@@ -397,3 +423,70 @@ def teams(request):
         'teams': teams
     }
     return render(request, "admin_teams.html", context)
+
+
+@login_required(login_url='signin')
+def editTeamContents(request, id):
+    if request.method == 'POST':
+        type = request.POST['type']
+        if type == 'category':
+            category = request.POST['category']
+            data = StaffCategory.objects.get(id=id)
+            data.category = category
+            data.save()
+            messages.add_message(request, messages.SUCCESS, "Category edited successfully")
+            return redirect('adminteams')
+        elif type == 'subcategory':
+            category = request.POST['category']
+            subcategory = request.POST['subcategory']
+            data = StaffSubCategory.objects.get(id=id)
+            data.category = StaffCategory.objects.get(id=category)
+            data.subcategory = subcategory
+            data.save()
+            messages.add_message(request, messages.SUCCESS, "Subcategory edited successfully")
+            return redirect('adminteams')
+        elif type == 'team':
+            category = request.POST['category']
+            subcategory = request.POST['subcategory']
+            name = request.POST['name']
+            qualification = request.POST['qualification']
+            experience = request.POST['experience']
+            data = TeamMembers.objects.get(id=id)
+            try:
+                image = request.FILES['image']
+            except MultiValueDictKeyError:
+                image = data.image
+            data.category = StaffCategory.objects.get(id=category)
+            data.subcategory = StaffSubCategory.objects.get(id=subcategory)
+            data.name = name
+            data.qualification = qualification
+            data.experience = experience
+            if image:
+                data.image.delete()
+                data.image = image
+            data.save()
+            messages.add_message(request, messages.SUCCESS, "Team member edited successfully")
+            return redirect('adminteams')
+
+
+
+
+@login_required(login_url='signin')
+def deleteCategory(request, id):
+    team = StaffCategory.objects.get(id=id)
+    team.delete()
+    return redirect('adminteams')
+
+
+@login_required(login_url='signin')
+def deleteSubCategory(request, id):
+    team = StaffSubCategory.objects.get(id=id)
+    team.delete()
+    return redirect('adminteams')
+
+
+@login_required(login_url='signin')
+def deleteTeamMember(request, id):
+    team = TeamMembers.objects.get(id=id)
+    team.delete()
+    return redirect('adminteams')

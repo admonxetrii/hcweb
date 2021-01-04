@@ -126,6 +126,7 @@ class StaffCategory(models.Model):
     def __str__(self):
         return self.category
 
+
 class StaffSubCategory(models.Model):
     category = models.ForeignKey(StaffCategory, on_delete=models.CASCADE)
     subcategory = models.CharField(max_length=50)
@@ -158,3 +159,28 @@ class TeamMembers(models.Model):
         except:
             pass  # when new photo then we do nothing, normal case
         super(TeamMembers, self).save(*args, **kwargs)
+
+
+class HomePageExtra(models.Model):
+    numberofprj = models.IntegerField(null=False, default=0)
+    numberofemp = models.IntegerField(null=False, default=0)
+    numberofconst = models.IntegerField(null=False, default=0)
+    numberofpart = models.IntegerField(null=False, default=0)
+    image = models.ImageField(upload_to='Home/Images/', null=True, blank=True)
+
+    def __str__(self):
+        return "Home Page Extras"
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            this = TeamMembers.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete(save=False)
+        except:
+            pass  # when new photo then we do nothing, normal case
+        super(HomePageExtra, self).save(*args, **kwargs)

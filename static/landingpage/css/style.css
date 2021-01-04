@@ -323,7 +323,7 @@ figure {
 
 #pycemon-hero {
   min-height: 700px;
-  background: #fff url(../images/loader.gif) no-repeat center center;
+  background: #fff url(../images/loader.gif) no-repeat center top;
   width: 100%;
   float: left;
 }

@@ -12,11 +12,11 @@
                     <h2 class="card-title">Manage Categories</h2>
                     <table id="responded" class="table">
                         <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">SN.</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Actions</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">SN.</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
                         {{ forloop.counter }}
@@ -24,13 +24,21 @@
                             <tr>
                                 <th scope="row">{{ forloop.counter }}</th>
                                 <td width="40%">{{ c.category }}</td>
-                                <td><a href="{% url 'editservicedetails' c.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
-                                    <a href="{% url 'delservicedetails' c.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" data-toggle="modal"
+                                            data-target="#editcategory{{ c.id }}">Edit
+                                    </button>
+                                    |
+                                    <a href="{% url 'deletecategory' c.id %}"
+                                       onclick="return confirm('Are you sure want to delete this item?');">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#addcategory">Add More Categories</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addcategory">Add More Categories
+                    </button>
                 </div>
             </div>
         </div>
@@ -40,12 +48,12 @@
                     <h2 class="card-title">Manage Sub Categories</h2>
                     <table id="zero-conf" class="table">
                         <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">SN.</th>
-                                <th scope="col">Sub Catagories</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Actions</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">SN.</th>
+                            <th scope="col">Sub Catagories</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
                         {{ forloop.counter }}
@@ -54,13 +62,22 @@
                                 <th scope="row">{{ forloop.counter }}</th>
                                 <td width="30%">{{ s.subcategory }}</td>
                                 <td width="25%">{{ s.category }}</td>
-                                <td><a href="{% url 'editservicedetails' s.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
-                                    <a href="{% url 'delservicedetails' s.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" data-toggle="modal"
+                                            data-target="#editsubcategory{{ s.id }}">Edit
+                                    </button>
+                                    |
+                                    <a href="{% url 'deletesubcategory' s.id %}"
+                                       onclick="return confirm('Are you sure want to delete this item?');">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#addsubcategory">Add More Sub Categories</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addsubcategory">Add More Sub
+                        Categories
+                    </button>
                 </div>
             </div>
         </div>
@@ -70,16 +87,16 @@
                     <h2 class="card-title">Manage Teams</h2>
                     <table id="teams" class="table">
                         <thead class="thead-dark">
-                            <tr>
-                                <th scope="col">SN.</th>
-                                <th scope="col">Name</th>
-                                <th scope="col">Qualification</th>
-                                <th scope="col">Experience</th>
-                                <th scope="col">Category</th>
-                                <th scope="col">Sub Category</th>
-                                <th scope="col">Image</th>
-                                <th scope="col">Actions</th>
-                            </tr>
+                        <tr>
+                            <th scope="col">SN.</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Qualification</th>
+                            <th scope="col">Experience</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Sub Category</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Actions</th>
+                        </tr>
                         </thead>
                         <tbody>
                         {{ forloop.counter }}
@@ -92,13 +109,21 @@
                                 <td>{{ t.category }}</td>
                                 <td>{{ t.subcategory }}</td>
                                 <td>{{ t.image }}</td>
-                                <td><a href="{% url 'editservicedetails' t.id %}"><button class="btn btn-sm btn-info">Edit</button></a> |
-                                    <a href="{% url 'delservicedetails' t.id %}" onclick="return confirm('Are you sure want to delete this item?');"><button class="btn btn-sm btn-danger">Delete</button></a></td>
+                                <td>
+                                    <button class="btn btn-sm btn-info" data-toggle="modal"
+                                            data-target="#editteams{{ t.id }}">Edit
+                                    </button>
+                                    |
+                                    <a href="{% url 'deleteteams' t.id %}"
+                                       onclick="return confirm('Are you sure want to delete this item?');">
+                                        <button class="btn btn-sm btn-danger">Delete</button>
+                                    </a></td>
                             </tr>
                         {% endfor %}
                         </tbody>
                     </table>
-                    <button class="btn btn-primary" data-toggle="modal" data-target="#addteams">Add More Team Members</button>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#addteams">Add More Team Members
+                    </button>
                 </div>
             </div>
         </div>
@@ -106,7 +131,8 @@
 
 
     <!-- Add Category Modal -->
-    <div class="modal fade" id="addcategory" tabindex="-1" role="dialog" aria-labelledby="addcategory" aria-hidden="true">
+    <div class="modal fade" id="addcategory" tabindex="-1" role="dialog" aria-labelledby="addcategory"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,7 +156,8 @@
     </div>
 
     <!-- Add Sub Category Modal -->
-    <div class="modal fade" id="addsubcategory" tabindex="-1" role="dialog" aria-labelledby="addsubcategory" aria-hidden="true">
+    <div class="modal fade" id="addsubcategory" tabindex="-1" role="dialog" aria-labelledby="addsubcategory"
+         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -176,6 +203,147 @@
             </div>
         </div>
     </div>
+
+    <!-- Edit Category Modal -->
+    {% for c in category %}
+
+        <div class="modal fade" id="editcategory{{ c.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="editcategory{{ c.id }}"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Edit Category - {{ c.category }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'admineditteams' c.id %}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="category{{ c.id }}">Category</label>
+                                <input type="text" value="{{ c.category }}" name="category" id="category{{ c.id }}"
+                                       class="form-control">
+                            </div>
+                            <input type="text" name="type" value="category" hidden>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    <!-- Edit Sub Category Modal -->
+    {% for s in subcategory %}
+        <div class="modal fade" id="editsubcategory{{ s.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="editsubcategory{{ s.id }}"
+             aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Edit Sub Category
+                            - {{ s.subcategory }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'admineditteams' s.id %}" enctype="multipart/form-data">
+                            <div class="form-group">'
+                                <label for="category{{ c.id }}">Category:</label>
+                                <select name="category" class="form-control" id="category{{ c.id }}">
+                                    {% for c in category %}
+                                        <option value="{{ c.id }}"
+                                                {% if s.category.id == c.id %}selected{% endif %}>{{ c.category }}</option>
+                                    {% endfor %}
+
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subcategory{{ s.id }}">Sub Category</label>
+                                <input type="text" class="form-control" value="{{ s.subcategory }}"
+                                       id="subcategory{{ s.id }}"
+                                       name="subcategory">
+                            </div>
+                            <input type="text" name="type" value="subcategory" hidden>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endfor %}
+    <!-- Edit Teams Modal -->
+    {% for team in teams %}
+        <div class="modal fade" id="editteams{{ team.id }}" tabindex="-1" role="dialog"
+             aria-labelledby="editteams{{ team.id }}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Edit Team Member - {{ team.name }}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <i class="material-icons">close</i>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="{% url 'admineditteams' team.id %}" enctype="multipart/form-data">
+                            <div class="form-group">
+                                <label for="category{{ team.id }}">Category:</label>
+                                <select name="category" class="form-control teamcategory" id="category{{ team.id }}">
+                                    {% for c in category %}
+                                        <option value="{{ c.id }}"
+                                                {% if team.category.id == c.id %}selected{% endif %}>{{ c.category }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="subcategory{{ team.id }}">Sub category:</label>
+                                <select name="subcategory" class="form-control subcategory" id="subcategory{{ team.id }}">
+                                    {% for s in subcategory %}
+                                        <option value="{{ s.id }}"{% if team.subcategory.id == s.id %}selected{% endif %}>{{ s.subcategory }}</option>
+                                    {% endfor %}
+
+                                </select>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="name{{ team.id }}">Name:</label>
+                                <input type="text" value="{{ team.name }}" name="name" id="name{{ team.id }}"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="qualification{{ team.id }}">Qualification:</label>
+                                <input type="text" value="{{ team.qualification }}" name="qualification"
+                                       id="qualification{{ team.id }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="experience{{ team.id }}">Experience:</label>
+                                <input type="text" value="{{ team.experience }}" name="experience"
+                                       id="experience{{ team.id }}" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="image">Image:</label>
+                                <input type="file" name="image" id="image" class="form-control">
+                            </div>
+                            <input type="text" name="type" value="team" hidden>
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
 {% endblock %}
 {% block 'scripts' %}
     <script src="{% static 'adminpanel/js/pages/datatables.js' %}"></script>

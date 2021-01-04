@@ -28,3 +28,4 @@ class QuotationRequest(models.Model):
 
     def __str__(self):
         return "Quotation" + self.email
+
