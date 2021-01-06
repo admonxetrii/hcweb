@@ -417,6 +417,10 @@ def teams(request):
                 teamsform.save()
                 messages.add_message(request, messages.SUCCESS, "Team Member added successfully!")
                 return redirect('adminteams')
+            else:
+                messages.add_message(request, messages.ERROR, "Error while adding Team Member!")
+                return redirect('adminteams')
+
     context = {
         'categoryform': categoryform,
         'subcategoryform': subcategoryform,
@@ -465,7 +469,6 @@ def editTeamContents(request, id):
             data.qualification = qualification
             data.experience = experience
             if image:
-                data.image.delete()
                 data.image = image
             data.save()
             messages.add_message(request, messages.SUCCESS, "Team member edited successfully")

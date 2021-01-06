@@ -244,14 +244,14 @@
 				<div class="row">
 					<div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
 						<h2>Our Projects</h2>
-						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost unorthographic life One day however a small line of blind text by the name</p>
+						<p>Even the all-powerful Pointing has no control about the blind texts it is an almost un-orthographic life One day however a small line of blind text by the name</p>
 					</div>
 				</div>
 				<div class="row">
                     {% for p in projects %}
                             <div class="col-md-{% if forloop.counter == 1 %}4{% elif forloop.counter == 2 and 5 %}8{% else %}6{% endif %} animate-box">
                                 <div class="project-entry">
-                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({{ p.cover_image.url }});">
+                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({% if p.cover_image %}{{ p.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %});">
                                         <span class="icon"><i class="icon-search2"></i></span>
                                     </a>
                                     <div class="desc">
@@ -306,7 +306,7 @@
 							</div>
 							<div class="col-half">
 								<div class="desc">
-									<p>The Big Oxmox advised her not to do so, because there were thousands of bad Commas, wild Question Marks and devious Semikoli, but the Little Blind Text didn’t listen.</p>
+									<p>In any industry where the people behind a company are as important as the company itself, you’re likely to find a kind of expanded “Manpower” page that includes information on individual employees.</p>
 									<div class="fancy-collapse-panel">
 			                     <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 											<div class="panel panel-default">
