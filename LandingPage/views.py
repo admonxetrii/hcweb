@@ -34,8 +34,10 @@ def home(request):
 
 def about(request):
     homeslider = HomeSlider.objects.all()[:1]
+    teams = TeamMembers.objects.all()[:3]
     context = {
-        'flex': homeslider
+        'flex': homeslider,
+        'teams':teams
     }
     return render(request, 'about.html', context)
 

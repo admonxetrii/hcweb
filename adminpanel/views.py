@@ -173,7 +173,10 @@ def addprojects(request):
         iscompleted = request.POST['iscompleted']
         completedwork = request.POST['completedwork']
         balance = request.POST['balance']
-        coverimg = request.FILES['coverimg']
+        try:
+            coverimg = request.FILES['coverimg']
+        except MultiValueDictKeyError:
+            coverimg = None
         project = Projects(client=client, location=location, nature_of_work=nature, contract_number=contractno,
                            value_of_work=valueofwork, value_of_completed_work=completedwork, contract_period=period,
                            date_of_start=startdate, date_of_complete=enddate, percentage_of_complete=percent,

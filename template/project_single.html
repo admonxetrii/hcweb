@@ -18,7 +18,7 @@
     <aside id="pycemon-hero">
         <div class="flexslider">
             <ul class="slides">
-                <li style="background-image: url({{ project.cover_image.url }});">
+                <li style="background-image: url({% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %});">
                     <div class="overlay"></div>
                     <div class="container-fluid">
                         <div class="row">
@@ -40,11 +40,11 @@
         <div class="container">
             <div class="row row-pb-lg">
                 <div class="col-md-8 animate-box">
-                    <img class="img-responsive project-single" src="{{ project.cover_image.url }}">
+                    <img class="img-responsive project-single" src="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %}">
                     <div class="thumb-wrap" >
                         <div class="row">
                             <div class="gallery" id="img-gallery">
-                                <a href="{{project.cover_image.url}}" data-lightbox="mygallary" data-title="{{ project.client }}" class="thumb-img" style="background-image: url({{ project.cover_image.url }}); display: none"></a>
+                                <a href="{% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %}" data-lightbox="mygallary" data-title="{{ project.client }}" class="thumb-img" style="background-image: url({% if project.cover_image %}{{ project.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %}); display: none;"></a>
                                 {% for image in images %}
                                 <div class="col-md-3 col-sm-3 col-xs-6">
                                     <a href="{{image.image.url}}" data-lightbox="mygallary" data-title="{{ project.client }}" class="thumb-img" style="background-image: url({{ image.image.url }})"></a>
@@ -112,7 +112,7 @@
                     <div class="col-md-4 animate-box">
                         <div class="project-entry">
                             <a href="{% url 'singleproject' p.id %}" class="project-img text-center"
-                               style="background-image: url({{ p.cover_image.url }});">
+                               style="background-image: url({% if p.cover_image %}{{ p.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %});">
                                 <span class="icon"><i class="icon-search2"></i></span>
                             </a>
                             <div class="desc">

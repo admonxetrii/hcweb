@@ -33,7 +33,7 @@
                         {% for p in comp %}
                             <div class="col-md-12 center-block animate-box">
                                 <div class="project-entry">
-                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({{ p.cover_image.url }}); height: 150px">
+                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({% if p.cover_image %}{{ p.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %}); height: 150px">
                                         <span class="icon"><i class="icon-search2"></i></span>
                                     </a>
                                     <div class="desc">
@@ -72,7 +72,7 @@
                         {% for p in underp %}
                             <div class="col-md-12 center-block animate-box">
                                 <div class="project-entry">
-                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({{ p.cover_image.url }}); height: 150px">
+                                    <a href="{% url 'singleproject' p.id %}" class="project-img text-center" style="background-image: url({% if p.cover_image %}{{ p.cover_image.url }}{% else %}{% static 'landingpage/images/construction.jpg' %}{% endif %}); height: 150px">
                                         <span class="icon"><i class="icon-search2"></i></span>
                                     </a>
                                     <div class="desc">

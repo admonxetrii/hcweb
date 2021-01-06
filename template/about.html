@@ -147,35 +147,21 @@
                 </div>
             </div>
             <div class="row">
+                {% for team in teams %}
                 <div class="col-md-3 animate-box">
-                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person1.jpg);">
+                    <a href="#" class="staff-img staff-img2" style="background-image: url({{ team.image.url}});">
                         <div class="desc-staff">
-                            <h3>Ian Moore</h3>
-                            <span>Electrician</span>
+                            <h3>{{ team.name }}</h3>
+                            <span>{{ team.subcategory.subcategory }}</span>
                         </div>
                     </a>
                 </div>
+                {% endfor %}
                 <div class="col-md-3 animate-box">
-                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person2.jpg);">
+                    <a href="{% url 'manpower' %}" class="staff-img staff-img2" style="background-image: url({% static 'landingpage/images/more_button.jpg' %});">
                         <div class="desc-staff">
-                            <h3>Jack Clark</h3>
-                            <span>Engineer</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 animate-box">
-                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person3.jpg);">
-                        <div class="desc-staff">
-                            <h3>Kiven Lewis</h3>
-                            <span>Architect</span>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-md-3 animate-box">
-                    <a href="#" class="staff-img staff-img2" style="background-image: url(images/person4.jpg);">
-                        <div class="desc-staff">
-                            <h3>Charles Scott</h3>
-                            <span>Assistant Engineer</span>
+                            <h3>View More</h3>
+                            <span>Team Members</span>
                         </div>
                     </a>
                 </div>
