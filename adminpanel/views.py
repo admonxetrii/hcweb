@@ -14,7 +14,7 @@ from django.shortcuts import render, redirect
 from django.utils.datastructures import MultiValueDictKeyError
 from .models import QuotationRequest, ContactDetails
 from LandingPage.models import ServicesDetail, HomeSlider, Projects, ProjectsPictures, StaffCategory, StaffSubCategory, \
-    TeamMembers, HomePageExtra
+    TeamMembers, HomePageExtra, Certificates, Equipments
 from .forms import ServiceDetailForm, HomeSliderForm, StaffCategoryForm, StaffSubCategoryForm, TeamMembersForms
 from django.contrib import messages
 
@@ -42,6 +42,7 @@ def signout(request):
     logout(request)
     messages.add_message(request, messages.ERROR, "You've been logged out!")
     return redirect('signin')
+
 
 @login_required(login_url='signin')
 def homepageextra(request):
@@ -413,14 +414,27 @@ def teams(request):
                 messages.add_message(request, messages.SUCCESS, "Sub category added successfully!")
                 return redirect('adminteams')
         elif type == 'team':
-            if teamsform.is_valid():
-                teamsform.save()
-                messages.add_message(request, messages.SUCCESS, "Team Member added successfully!")
-                return redirect('adminteams')
-            else:
-                messages.add_message(request, messages.ERROR, "Error while adding Team Member!")
-                return redirect('adminteams')
+            category = request.POST['category']
+            subcategory = request.POST['subcategory']
+            name = request.POST['name']
+            try:
+                qualification = request.POST['qualification']
+            except MultiValueDictKeyError:
+                qualification = ""
+            try:
+                experience = request.POST['experience']
+            except MultiValueDictKeyError:
+                experience = ""
+            try:
+                image = request.FILES['image']
+            except MultiValueDictKeyError:
+                image = None
 
+            TeamMembers.objects.create(category=StaffCategory.objects.get(id=category),
+                                       subcategory=StaffSubCategory.objects.get(id=subcategory), name=name,
+                                       qualification=qualification, experience=experience, image=image)
+            messages.add_message(request, messages.SUCCESS, "Team Member added!")
+            return redirect('adminteams')
     context = {
         'categoryform': categoryform,
         'subcategoryform': subcategoryform,
@@ -475,8 +489,6 @@ def editTeamContents(request, id):
             return redirect('adminteams')
 
 
-
-
 @login_required(login_url='signin')
 def deleteCategory(request, id):
     team = StaffCategory.objects.get(id=id)
@@ -496,3 +508,90 @@ def deleteTeamMember(request, id):
     team = TeamMembers.objects.get(id=id)
     team.delete()
     return redirect('adminteams')
+
+@login_required(login_url='signin')
+def certificates(request):
+    certificates = Certificates.objects.all()
+    if request.method=='POST':
+        type = request.POST['type']
+        if type == 'edit':
+            id = request.POST['id']
+            data = Certificates.objects.get(id=id)
+            title = request.POST['title']
+            try:
+                image = request.FILES['image']
+            except MultiValueDictKeyError:
+                image = data.image
+            data.title = title
+            data.image = image
+            data.save()
+            messages.add_message(request,messages.SUCCESS,"Certificate edited successfully")
+            return redirect('admincertificates')
+        else:
+            title = request.POST['title']
+            image = request.FILES['image']
+            Certificates.objects.create(title=title,image=image)
+            messages.add_message(request,messages.SUCCESS,"Certificate added successfully.")
+            return redirect('admincertificates')
+    context = {
+        'cert':certificates
+    }
+    return render(request, "admin_certificates.html", context)
+
+
+
+@login_required(login_url='signin')
+def delcertificates(request, id):
+    data = Certificates.objects.get(id=id)
+    data.delete()
+    messages.add_message(request, messages.ERROR, "Certificate deleted successfully!")
+    return redirect('admincertificates')@login_required(login_url='signin')
+
+
+
+def equipments(request):
+    equipments = Equipments.objects.all()
+    if request.method=='POST':
+        type = request.POST['type']
+        name = request.POST['name']
+        qty = request.POST['qty']
+        try:
+            vhno = request.POST['vhno']
+        except MultiValueDictKeyError:
+            vhno = ""
+        try:
+            make = request.POST['make']
+        except MultiValueDictKeyError:
+            make = ""
+        try:
+            yrs = request.POST['yrs']
+        except MultiValueDictKeyError:
+            yrs =""
+        if type == 'edit':
+            id = request.POST['id']
+            data = Equipments.objects.get(id=id)
+            data.name = name
+            data.quantity = qty
+            data.vehicleno = vhno
+            data.make = make
+            data.year = yrs
+            data.save()
+            messages.add_message(request,messages.SUCCESS,"Equipment edited successfully")
+            return redirect('adminequipments')
+        else:
+            Equipments.objects.create(name=name,quantity=qty, vehicleno=vhno,make=make,year=yrs)
+            messages.add_message(request,messages.SUCCESS,"Equipments added successfully.")
+            return redirect('adminequipments')
+    context = {
+        'equip':equipments
+    }
+    return render(request, "admin_equipments.html", context)
+
+
+
+@login_required(login_url='signin')
+def delequipments(request, id):
+    data = Equipments.objects.get(id=id)
+    data.delete()
+    messages.add_message(request, messages.ERROR, "Equipment deleted successfully!")
+    return redirect('adminequipments')

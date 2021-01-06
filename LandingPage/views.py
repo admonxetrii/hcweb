@@ -3,7 +3,7 @@ from asgiref.sync import sync_to_async
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from LandingPage.models import ServicesDetail, HomeSlider, Projects, ProjectsPictures, TeamMembers, StaffCategory, \
-    HomePageExtra
+    HomePageExtra, Certificates, Equipments
 from adminpanel.models import QuotationRequest, ContactDetails
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
@@ -224,3 +224,29 @@ def emailtooffice(context):
         email.attach(msg_img)
 
     email.send()
+
+
+def certificate(request):
+    flex = HomeSlider.objects.all()[:1]
+    cert = Certificates.objects.all()
+    context = {
+        'flex':flex,
+        'cert':cert
+    }
+    return render(request, "certificate.html", context)
+
+def equipments(request):
+    flex = HomeSlider.objects.all()[:1]
+    equip = Equipments.objects.all()
+    context = {
+        'flex':flex,
+        'equip':equip
+    }
+    return render(request, "equipments.html", context)
+
+def cprofile(request):
+    flex = HomeSlider.objects.all()[:1]
+    context = {
+        'flex': flex,
+    }
+    return render(request, "cprofile.html", context)

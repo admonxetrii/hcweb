@@ -184,3 +184,35 @@ class HomePageExtra(models.Model):
         except:
             pass  # when new photo then we do nothing, normal case
         super(HomePageExtra, self).save(*args, **kwargs)
+
+class Certificates(models.Model):
+    title = models.CharField(max_length=64)
+    image = models.ImageField(upload_to='Certificate/',null=True)
+
+    def __str__(self):
+        return self.title
+
+    def delete(self, *args, **kwargs):
+        self.image.delete()
+        super().delete(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        # delete old file when replacing by updating the file
+        try:
+            this = Certificates.objects.get(id=self.id)
+            if this.image != self.image:
+                this.image.delete(save=False)
+        except:
+            pass  # when new photo then we do nothing, normal case
+        super(Certificates, self).save(*args, **kwargs)
+
+
+class Equipments(models.Model):
+    name = models.CharField(max_length=64)
+    quantity = models.CharField(max_length=64)
+    vehicleno = models.CharField(max_length=64)
+    make = models.CharField(max_length=64)
+    year = models.CharField(max_length=64)
+
+    def __str__(self):
+        return self.name

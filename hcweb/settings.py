@@ -116,13 +116,14 @@ USE_TZ = True
 
 # Email Settings
 
-EMAIL_HOST = "smtp.hostinger.com"
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-EMAIL_HOST_USER = "no-reply@pycemontech.com.np"
-EMAIL_HOST_PASSWORD = "231Bac564#"
+EMAIL_HOST = "mail.hanumanconstruction.com"
+EMAIL_PORT = 465
+EMAIL_USE_TLS = False
+EMAIL_HOST_USER = "no-reply@hanumanconstruction.com"
+EMAIL_HOST_PASSWORD = "231Bac564#!"
 
-EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "django_smtp_ssl.SSLEmailBackend"
+# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/

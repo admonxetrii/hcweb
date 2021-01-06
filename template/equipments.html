@@ -1,0 +1,69 @@
+{% extends 'base/landingbase.html' %}
+{% load static %}
+{% block 'styles' %}
+    <style>
+    td, th{
+        padding: 8px !important;
+    }
+    </style>
+{% endblock %}
+{% block 'title' %}Company Equipments{% endblock %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                {% for f in flex %}
+                    <li style="background-image: url({{ f.image.url }});">
+                {% endfor %}
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h1>Company Equipments</h1>
+                                <h2><a href="{% url 'home' %}">Home</a> - Equipments</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="pycemon-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
+                    <h2>Equipments</h2>
+                    <p>List of all the available equipments of Hanuman Construction.</p>
+                </div>
+            </div>
+            <div class="row text-center">
+                <table border="1px" width="100%">
+                    <thead>
+                        <tr>
+                            <th>S.No.</th>
+                            <th width="40%">Name of Equipment</th>
+                            <th>Quantity</th>
+                            <th>Vehicle No.</th>
+                            <th width="15%">Make</th>
+                            <th>Yr. of Mfg.</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for e in equip %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ e.name }}</td>
+                            <td>{{ e.quantity }}</td>
+                            <td>{{ e.vehicleno }}</td>
+                            <td>{{ e.make }}</td>
+                            <td>{{ e.year }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

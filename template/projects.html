@@ -1,6 +1,13 @@
 {% extends 'base/landingbase.html' %}
 {% block 'title' %}Projects{% endblock %}
 {% load static %}
+{% block 'styles' %}
+    <style>
+    td,th{
+        padding: 2px !important;
+    }
+    </style>
+{% endblock %}
 {% block 'body' %}
     <aside id="pycemon-hero">
         <div class="flexslider">

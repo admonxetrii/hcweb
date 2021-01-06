@@ -1,0 +1,92 @@
+{% extends 'base/adminbase.html' %}
+{% block 'title' %}Certificates{% endblock %}
+{% load static %}
+{% block 'body' %}
+<div class="main-wrapper">
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Company certificates</h1>
+        </div>
+    </div>
+    <div class="row">
+        {% for s in cert %}
+        <div class="col-md-3">
+            <div class="card">
+                <img src="{{ s.image.url }}" class="card-img-top" alt="Placeholder">
+                <div class="card-body">
+                    <h5 class="card-title">{{ s.title }}</h5>
+                    <button data-toggle="modal" data-target="#editmodal{{ s.id }}" class="btn btn-info">Edit</button> | <a href="{% url 'delcertificates' s.id %}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <button class="btn btn-primary" data-toggle="modal" data-target="#addslider">Add Certificate</button>
+
+
+    <!-- Add Certificate Modal -->
+    <div class="modal fade" id="addslider" tabindex="-1" role="dialog" aria-labelledby="addservices" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Add Certificate</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <label for="addtitle">Title:</label>
+                            <input type="text" name="title" id="addtitle" class="form-control" placeholder="Enter Certificate Title here." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addimage">Image:</label>
+                            <input type="file" name="image" id="addimage" class="form-control" required>
+                        </div>
+                        <input type="text" value="add" name="type" hidden>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Add Certificate</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% for c in cert %}
+    <!-- Edit certificates -->
+    <div class="modal fade" id="editmodal{{ c.id }}" tabindex="-1" role="dialog" aria-labelledby="addservices" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalCenterTitle">Edit Certificate - {{ c.title }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <i class="material-icons">close</i>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form method="post" enctype="multipart/form-data">
+                        <input type="number" value="{{ c.id }}" name="id" hidden>
+                        <div class="form-group">
+                            <label for="addtitle">Title:</label>
+                            <input type="text" value="{{ c.title }}" name="title" id="addtitle" class="form-control" placeholder="Enter Certificate Title here." required>
+                        </div>
+                        <div class="form-group">
+                            <label for="addimage">Image:</label>
+                            <input type="file" name="image" id="addimage" class="form-control">
+                        </div>
+                        <input type="text" value="edit" name="type" hidden>
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Edit Certificate</button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}

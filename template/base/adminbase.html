@@ -80,6 +80,12 @@
                         <li {% if request.get_full_path == '/admin/projects/' %} class="active-page" {% endif %}>
                             <a href="{% url 'adminprojects' %}"><i class="material-icons">construction</i>Projects</a>
                         </li>
+                        <li {% if request.get_full_path == '/admin/certificates/' %} class="active-page" {% endif %}>
+                            <a href="{% url 'admincertificates' %}"><i class="material-icons">description</i>Certificates</a>
+                        </li>
+                        <li {% if request.get_full_path == '/admin/equipments/' %} class="active-page" {% endif %}>
+                            <a href="{% url 'adminequipments' %}"><i class="material-icons">agriculture</i>Equipments</a>
+                        </li>
                         <li {% if request.get_full_path == '/admin/teams/' %} class="active-page" {% endif %}>
                             <a href="{% url 'adminteams' %}"><i class="material-icons">people</i>Team Members</a>
                         </li>

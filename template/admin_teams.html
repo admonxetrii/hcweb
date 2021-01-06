@@ -2,6 +2,33 @@
 {% load static %}
 {% block 'style' %}
     <link href="{% static 'adminpanel/plugins/DataTables/datatables.min.css' %}" rel="stylesheet">
+    <script type="text/javascript">
+    function populate(s1,s2){
+        console.log(s1,s2);
+        s1 = document.getElementById(s1);
+        s2 = document.getElementById(s2);
+        console.log("----",s1,s2);
+        s2.innerHTML = "";
+        console.log(s1.value)
+        var optionArray;
+        if (s1.value === 0){
+            console.log('bigryoo')
+        }
+        {% for c in category %}
+            else if(s1.value === '{{ c.id }}'){
+                console.log(s1.value)
+                optionArray = ["|Select one"{% for s in subcategory %}{% if s.category.id == c.id %},"{{s.id}}|{{s.subcategory}}"{% endif %}{% endfor %}];
+            }
+        {% endfor %}
+        for(let option in optionArray){
+            let pair = optionArray[option].split("|");
+            let newOption = document.createElement("option");
+            newOption.value = pair[0];
+            newOption.innerHTML = pair[1];
+            s2.options.add(newOption);
+        }
+    }
+    </script>
 {% endblock %}
 {% block 'title' %}Team Members{% endblock %}
 {% block 'body' %}
@@ -192,7 +219,42 @@
                 </div>
                 <div class="modal-body">
                     <form method="post" enctype="multipart/form-data">
-                        {{ teamsform.as_p }}
+                        <div class="form-group">
+                                <label for="addteamcategory">Category:</label>
+                                <select name="category" class="form-control teamcategory" required id="addteamcategory" onclick="populate(this.id,'addteamsubcategory');">
+                                    <option value="" selected>Select Category</option>
+                                    {% for c in category %}
+                                        <option value="{{ c.id }}">{{ c.category }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="addteamsubcategory">Sub category:</label>
+                                    <select name="subcategory" required class="form-control subcategory" id="addteamsubcategory">
+                                </select>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="addname">Name:</label>
+                                <input type="text" value="{{ team.name }}" required name="name" id="addname"
+                                       class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="addqua">Qualification:</label>
+                                <input type="text" value="{{ team.qualification }}" name="qualification"
+                                       id="addqua" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="addexperience">Experience:</label>
+                                <input type="text" value="{{ team.experience }}" name="experience"
+                                       id="addexperience" class="form-control">
+                            </div>
+                            <div class="form-group">
+                                <label for="addimage">Image:</label>
+                                <input type="file" name="image" id="addimage" class="form-control">
+                            </div>
+                            <input type="text" name="type" value="team" hidden>
+                            {% csrf_token %}
                         <input type="text" name="type" value="team" hidden>
                         {% csrf_token %}
                         <button type="submit" class="btn btn-primary">Submit</button>
@@ -254,8 +316,8 @@
                     <div class="modal-body">
                         <form method="post" action="{% url 'admineditteams' s.id %}" enctype="multipart/form-data">
                             <div class="form-group">'
-                                <label for="category{{ c.id }}">Category:</label>
-                                <select name="category" class="form-control" id="category{{ c.id }}">
+                                <label for="category{{ s.id }}">Category:</label>
+                                <select name="category" class="form-control" id="category{{ s.id }}">
                                     {% for c in category %}
                                         <option value="{{ c.id }}"
                                                 {% if s.category.id == c.id %}selected{% endif %}>{{ c.category }}</option>
@@ -296,8 +358,8 @@
                     <div class="modal-body">
                         <form method="post" action="{% url 'admineditteams' team.id %}" enctype="multipart/form-data">
                             <div class="form-group">
-                                <label for="category{{ team.id }}">Category:</label>
-                                <select name="category" class="form-control teamcategory" id="category{{ team.id }}">
+                                <label for="editcategory{{ team.id }}">Category:</label>
+                                <select name="category" class="form-control teamcategory" required id="editcategory{{ team.id }}" onclick="populate(this.id,'editsubcategory{{ team.id }}');">
                                     {% for c in category %}
                                         <option value="{{ c.id }}"
                                                 {% if team.category.id == c.id %}selected{% endif %}>{{ c.category }}</option>
@@ -305,12 +367,8 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="subcategory{{ team.id }}">Sub category:</label>
-                                <select name="subcategory" class="form-control subcategory" id="subcategory{{ team.id }}">
-                                    {% for s in subcategory %}
-                                        <option value="{{ s.id }}"{% if team.subcategory.id == s.id %}selected{% endif %}>{{ s.subcategory }}</option>
-                                    {% endfor %}
-
+                                <label for="editsubcategory{{ team.id }}">Sub category:</label>
+                                    <select name="subcategory" required class="form-control subcategory" id="editsubcategory{{ team.id }}">
                                 </select>
 
                             </div>

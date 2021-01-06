@@ -1,0 +1,161 @@
+{% extends 'base/landingbase.html' %}
+{% load static %}
+{% block 'styles' %}
+    <style>
+    td,th{
+        padding: 8px !important;
+    }
+    </style>
+{% endblock %}
+{% block 'title' %}Company Profile{% endblock %}
+{% block 'body' %}
+    <aside id="pycemon-hero">
+        <div class="flexslider">
+            <ul class="slides">
+                {% for f in flex %}
+                    <li style="background-image: url({{ f.image.url }});">
+                {% endfor %}
+                <div class="overlay"></div>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-8 col-sm-12 col-md-offset-2 slider-text">
+                            <div class="slider-text-inner text-center">
+                                <h1>Company Profile</h1>
+                                <h2><a href="{% url 'home' %}">Home</a> - Profile</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </li>
+            </ul>
+        </div>
+    </aside>
+    <div id="pycemon-contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 col-md-offset-2 text-center pycemon-heading animate-box">
+                    <h2>Company Profile</h2>
+                    <p>Brief details about the company.</p>
+                </div>
+            </div>
+            <div class="row">
+                <table border="1px"   width="100%">
+                    <tbody>
+                        <tr>
+                            <td width="200"><strong>Name</strong></td>
+                            <td><strong>HANUMAN CONSTRUCTION</strong></td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Address</td>
+                            <td>Lalitpur -25<br />
+                            <br />
+                            Kathmandu Office :<br />
+                            C/O. H C Hardware, Bhainsipati &ndash; Bugmuti Road,<br />
+                            Bhainsipati (Dist. &ndash; Lalitpur),<br />
+                            Kathmandu, Nepal<br />
+                            Phone: +977-01-5593209, 5593214<br />
+                            Mail: hcprojects.nepal@gmail.com<br />
+                            Web: www.hcgroupnepal.com</td>
+                        </tr>
+                        <tr>
+                            <td>Name of Proprietor</td>
+                            <td>Shri Salik Ram Neupane</td>
+                        </tr>
+                        <tr>
+                            <td>Year of Incorporation</td>
+                            <td>March 1994, Proprietorship Company</td>
+                        </tr>
+                        <tr>
+                            <td>Nature of Business</td>
+                            <td>All types of Civil &amp; Structural Construction work in Industrial Sectors (Both Govt. &amp; Private Sector)</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Major Clients</td>
+                            <td>
+                            <ul>
+                                <li>Bridge &amp; Roof Co. (India) Ltd., Kolkata, India (A Govt. of India Enterprise)</li>
+                                <li>Nepal Army</li>
+                                <li>Nepal Telecom Corporation</li>
+                                <li>Lumbini Development Trust</li>
+                                <li>Director of Roads</li>
+                                <li>Kathmandu University Hospital (Dhulikhel Hospital)</li>
+                                <li>Butwal Power Company (Himal Hydro)</li>
+                                <li>Govt. of Nepal, Home Ministry (Jail Development Authority)</li>
+                            </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Major Works Completed</td>
+                            <td>
+                            <ul>
+                                <li>Construction of Industrial Buildings</li>
+                                <li>Construction of Civil Buildings</li>
+                                <li>Hospital</li>
+                                <li>Hostel Block</li>
+                                <li>Academic &amp; Administrative Block</li>
+                                <li>Old Age Home</li>
+                                <li>Medical College cum Complex</li>
+                                <li>Sports Complex cum Auditorium</li>
+                                <li>Army School</li>
+                                <li>Road Improvement Projects</li>
+                                <li>Hydro-Power Projects.</li>
+                            </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Subsidiary Companies</td>
+                            <td>
+                            <ul>
+                                <li>Purushottam Construction, Hetauda, Nepal</li>
+                                <li>Shree Ganesh Construction, Hetauda, Nepal</li>
+                                <li>Mahaveer Construction, Hetauda, Nepal</li>
+                                <li>Bhairav Construction, Hetauda, Nepal</li>
+                                <li>HC Hardware, Dist. &ndash; Lalitpur, Kathmandu, Nepal</li>
+                                <li>Siddhashree International Trading &amp; Suppliers, Kathmandu, Nepal</li>
+                                <li>Himshikhar Stone Crusher Udyog, Kathamandu, Nepal</li>
+                                <li>Global Touch Enterprises A to Z Trading &amp; Suppliers, Nepal</li>
+                            </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Auditor</td>
+                            <td>Ramesh Giri, Hetauda, Nepal</td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Bankers</td>
+                            <td>
+                            <ul>
+                                <li>Nepal Bangladesh Bank</li>
+                                <li>Grand Bank</li>
+                                <li>Sunrise Bank</li>
+                                <li>Nepal Rashtriya Bank</li>
+                                <li>Nepal Bank</li>
+                            </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top">Annual Turn Over</td>
+                            <td>
+                            <ul>
+                                <li>2010-11: NRs. 42,04,65,903.07</li>
+                                <li>2011-12: NRs. 45,40,05,928.86</li>
+                                <li>2012-13: NRs. 31,29,12,378.19</li>
+                                <li>2013-14: NRs. 49,44,04,851.97</li>
+                                <li>2014-15: NRs. 86,80,98,831.80 (Provisional)</li>
+                            </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Registration No.</td>
+                            <td>2509/2050/2051, 1st March 1994, Hetauda, Nepal</td>
+                        </tr>
+                        <tr>
+                            <td>PAN / VAT No.</td>
+                            <td>300138584, 19th July 2002, Hetauda, Nepal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
